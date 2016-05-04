@@ -1,16 +1,7 @@
-# electron-quick-start
+# React Music Player
 
-**Clone and run for a quick way to see an Electron in action.**
 
 This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start) within the Electron documentation.
-
-A basic Electron application needs just these files:
-
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
-
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start).
 
 ## To Use
 
@@ -18,9 +9,9 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 
 ```bash
 # Clone this repository
-git clone https://github.com/electron/electron-quick-start
+git clone https://github.com/andela-ekupara/react-music-player music-player
 # Go into the repository
-cd electron-quick-start
+cd music-player
 # Install dependencies and run the app
 npm install && npm start
 ```
