@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # electron-quick-start
 
 **Clone and run for a quick way to see an Electron in action.**
@@ -28,3 +29,6 @@ npm install && npm start
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
 
 #### License [CC0 (Public Domain)](LICENSE.md)
+=======
+# react-music-player
+>>>>>>> 349598bc780dbae9f8b0a3284fd3df6d5e0372f0
