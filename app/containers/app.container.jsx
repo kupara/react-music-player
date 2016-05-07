@@ -22,11 +22,11 @@ export default class AppContainer extends React.Component {
     let self = this;
     Axios
       .get(`https://api.soundcloud.com/playlists/209262931?client_id=${this.client_id}`)
-      .then(function(response) {
-        const tracksLength = response.data.tracks.length;
+      .then(function(res) {
+        const tracksLength = res.data.tracks.length;
         const randomNumber = Math.floor(Math.random() * tracksLength + 1);
         self.setState({
-          track: response.data.tracks[randomNumber];
+          track: res.data.tracks[randomNumber];
         });
       })
       .catch(function(err) {
