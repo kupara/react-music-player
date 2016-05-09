@@ -40,7 +40,7 @@ export default class AppContainer extends React.Component {
         const tracksLength = res.data.tracks.length;
         const randomNumber = Math.floor(Math.random() * tracksLength + 1);
         self.setState({
-          track: res.data.tracks[randomNumber];
+          track: res.data.tracks[randomNumber]
         });
       })
       .catch(function(err) {
@@ -55,7 +55,7 @@ export default class AppContainer extends React.Component {
   handleSongPlaying(audio) {
     this.setState({
       elapsed: this.formatMilliseconds(audio.position),
-      total: formatMilliseconds(audio.duration),
+      total: this.formatMilliseconds(audio.duration),
       position: audio.position / audio.duration
     });
   }
@@ -93,9 +93,10 @@ export default class AppContainer extends React.Component {
 
     Axios
       .get(`https://api.soundcloud.com/playlists/209262931?client_id=${this.client_id}&q=${value}`)
-      .then(function() {
+      .then(function(response) {
+        console.log(response.data);
         self.setState({
-          tracks: response.data
+          tracks: response.data.tracks
         });
       })
       .catch(function(err) {
