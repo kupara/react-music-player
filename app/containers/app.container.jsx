@@ -4,6 +4,9 @@ import Sound from 'react-sound';
 
 import Search from '../components/search.component.jsx';
 import Details from '../components/details.component.jsx';
+import Player from '../components/player.component.jsx';
+import Progress from '../components/progress.component.jsx';
+import Footer from '../components/footer.component.jsx';
 
 export default class AppContainer extends React.Component {
   constructor(props) {
@@ -58,19 +61,15 @@ export default class AppContainer extends React.Component {
   }
 
   formatMilliseconds(milliseconds) {
-    // Format hours
     var hours = Math.floor(milliseconds / 3600000);
     milliseconds = milliseconds % 3600000;
 
-    // Format minutes
     var minutes = Math.floor(milliseconds / 60000);
     milliseconds = milliseconds % 60000;
 
-    // Format seconds
     var seconds = Math.floor(milliseconds / 1000);
     milliseconds = Math.floor(milliseconds % 1000);
 
-    // Return as string
     return (minutes < 10 ? '0' : '') + minutes + ':' +
     (seconds < 10 ? '0' : '') + seconds;
   }
@@ -91,6 +90,7 @@ export default class AppContainer extends React.Component {
       autoCompleteValue: event.target.value
     });
     let self = this;
+
     Axios
       .get(`https://api.soundcloud.com/playlists/209262931?client_id=${this.client_id}&q=${value}`)
       .then(function() {
@@ -103,15 +103,70 @@ export default class AppContainer extends React.Component {
       });
   }
 
+  togglePlay() {
+    if(this.state.playStatus === Sound.status.PLAYING){
+      this.setState({playStatus: Sound.status.PAUSED})
+    } else {
+      this.setState({playStatus: Sound.status.PLAYING})
+    }
+  }
+
+  stop() {
+    this.setState({
+      playStatus: Sound.status.STOPPED
+    });
+  }
+
+  forward() {
+    this.setState({
+      playFromPosition: this.playFromPosition += 10000
+    });
+  }
+
+  rewind() {
+    this.setState({
+      playFromPosition: this.playFromPosition -= 10000
+    });
+  }
+
+  xlArtwork(url){
+    return url.replace(/large/, 't500x500');
+  }
+
   render() {
+    const appStyle = {
+      width: '500px',
+      height: '500px',
+      backgroundImage: `linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+    ),   url(${this.xlArtwork(this.state.track.artwork_url)})`
+    }
     return (
-      <div className="music-player">
+      <div className="music-player" style={appStyle}>
         <Search
           autoCompleteValue={this.state.autoCompleteValue}
           tracks={this.state.tracks}
           handleSelect={this.handleSelect.bind(this)}
           handleChange={this.handleChange.bind(this)}
         />
+        <Details
+            title={this.state.track.title}
+        />
+        <Player
+          togglePlay={this.togglePlay.bind(this)}
+          stop={this.stop.bind(this)}
+          playStatus={this.state.playStatus}
+          forward={this.forward.bind(this)}
+          rewind={this.rewind.bind(this)}
+          random={this.randomTrack.bind(this)}
+        />
+        <Progress
+          elapsed={this.state.elapsed}
+          total={this.state.total}
+          position={this.state.position}
+        />
+        <Footer />
         <Sound
            url={this.prepareUrl(this.state.track.stream_url)}
            playStatus={this.state.playStatus}

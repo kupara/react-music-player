@@ -11,7 +11,7 @@ export default class Player extends React.Component {
     return (
       <div className="player">
         <div className="player-back">
-          <button onClick={this.props.back}>
+          <button onClick={this.props.rewind}>
             <i className="fa fa-backward"></i>
           </button>
         </div>
